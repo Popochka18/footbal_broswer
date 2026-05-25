@@ -84,6 +84,7 @@ $transfers = $recent_transfers->fetchAll();
           <th>Pos</th>
           <th>Age</th>
           <th>Foot</th>
+          <th class="center">EA</th>
           <th>Joined</th>
           <th>Contract</th>
           <th class="num">Market Value</th>
@@ -91,7 +92,7 @@ $transfers = $recent_transfers->fetchAll();
       </thead>
       <tbody>
         <?php foreach ($groups as $group_name => $group_players): ?>
-        <tr class="pos-group-row"><td colspan="9"><?= h($group_name) ?></td></tr>
+        <tr class="pos-group-row"><td colspan="10"><?= h($group_name) ?></td></tr>
         <?php foreach ($group_players as $p): ?>
         <tr class="searchable-row">
           <td class="center">
@@ -107,6 +108,7 @@ $transfers = $recent_transfers->fetchAll();
           <td><span class="position-badge"><?= h($p['position']) ?></span></td>
           <td><?= $p['birth_date'] ? age($p['birth_date']) : '-' ?></td>
           <td><?= h($p['foot']) ?></td>
+          <td class="center"><?php if ($p['ea_rating']): ?><span class="ea-rating"><?= (int)$p['ea_rating'] ?></span><?php else: ?>-<?php endif; ?></td>
           <td><?= $p['joined'] ? date('d.m.Y', strtotime($p['joined'])) : '-' ?></td>
           <td><?= $p['contract_until'] ? date('d.m.Y', strtotime($p['contract_until'])) : '-' ?></td>
           <td class="num value-cell"><?= format_value($p['market_value']) ?></td>
@@ -116,7 +118,7 @@ $transfers = $recent_transfers->fetchAll();
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="8" style="text-align:right;font-weight:700;padding:10px 12px;color:#555">Total Squad Value:</td>
+          <td colspan="9" style="text-align:right;font-weight:700;padding:10px 12px;color:#555">Total Squad Value:</td>
           <td class="num value-cell" style="font-size:16px"><?= format_value($total_value) ?></td>
         </tr>
       </tfoot>
