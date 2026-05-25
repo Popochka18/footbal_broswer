@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/includes/functions.php';
+
 $league_id = (int)($_GET['id'] ?? 0);
 if (!$league_id) { header('Location: index.php'); exit; }
 
