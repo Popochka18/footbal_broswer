@@ -44,11 +44,22 @@ if (isset($opts['url']) && $opts['url'] !== '') {
         exit(2);
     }
 } elseif (isset($opts['json']) && $opts['json'] !== '' && $opts['json'] !== '-') {
+    if (!is_file($opts['json'])) fail("File not found: {$opts['json']}");
     $raw = file_get_contents($opts['json']);
+    if ($raw === false || $raw === '') fail("Could not read or empty file: {$opts['json']}");
 } else {
     // stdin (also catches "-")
-    if (posix_isatty(STDIN)) fail("No input. Pass --json=<file>, --url=<url>, or pipe JSON via stdin.");
+    if (posix_isatty(STDIN)) {
+        fail("No input. Provide one of:\n"
+           . "    --json=<path-to-file>   read JSON from a file\n"
+           . "    --url=<page-url>        try to fetch (usually blocked)\n"
+           . "    - (and pipe JSON)       e.g.  cat squad.json | php import.php ... -\n\n"
+           . "  To get the JSON: run  php import.php --source=<src> --snippet,\n"
+           . "  paste the snippet into your browser's DevTools console on the squad page,\n"
+           . "  then save the copied clipboard contents to a file or pipe it here.");
+    }
     $raw = stream_get_contents(STDIN);
+    if ($raw === '' || $raw === false) fail("stdin was empty. Pipe JSON, e.g.  cat squad.json | php import.php ... -");
 }
 
 $data = json_decode($raw, true);
