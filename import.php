@@ -12,6 +12,10 @@
 
 require_once __DIR__ . '/includes/functions.php';
 
+if (!function_exists('mb_strtolower')) {
+    function mb_strtolower(string $s, string $enc = 'UTF-8'): string { return strtolower($s); }
+}
+
 // ── CLI args ──────────────────────────────────────────────────────────────
 $opts = getopt('', ['source::','team::','season::','json::','url::','snippet','help']);
 if (isset($opts['help']) || (PHP_SAPI === 'cli' && $argc === 1)) usage_and_exit();
