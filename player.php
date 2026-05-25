@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/includes/functions.php';
+
 $player_id = (int)($_GET['id'] ?? 0);
 if (!$player_id) { header('Location: index.php'); exit; }
 

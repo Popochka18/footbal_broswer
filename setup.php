@@ -2,6 +2,16 @@
 // Run once: php setup.php
 define('DB_PATH', __DIR__ . '/db/football.db');
 
+if (!extension_loaded('pdo_sqlite')) {
+    fwrite(STDERR, "ERROR: PHP extension 'pdo_sqlite' is not installed.\n\n");
+    fwrite(STDERR, "Install it with one of:\n");
+    fwrite(STDERR, "  Debian/Ubuntu:  sudo apt install php-sqlite3\n");
+    fwrite(STDERR, "  Fedora/RHEL:    sudo dnf install php-pdo php-sqlite3\n");
+    fwrite(STDERR, "  Arch:           sudo pacman -S php-sqlite\n\n");
+    fwrite(STDERR, "Then verify with:  php -m | grep -i sqlite\n");
+    exit(1);
+}
+
 if (!is_dir(__DIR__ . '/db')) mkdir(__DIR__ . '/db', 0775, true);
 
 $pdo = new PDO('sqlite:' . DB_PATH);

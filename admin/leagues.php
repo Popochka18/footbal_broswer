@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../includes/functions.php';
 $root = '../';
 $page_title = 'Manage Leagues';
 require_once __DIR__ . '/../includes/header.php';

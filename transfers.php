@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/functions.php';
 $page_title = 'Transfers';
 require_once __DIR__ . '/includes/header.php';
 

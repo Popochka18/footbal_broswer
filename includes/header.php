@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/functions.php';
 $countries = get_countries();
 $current_page = basename($_SERVER['PHP_SELF']);

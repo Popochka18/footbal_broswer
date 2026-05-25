@@ -1,4 +1,5 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) session_start();
 require_once __DIR__ . '/db.php';
 
 function format_value(int|null $value): string {
