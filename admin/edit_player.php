@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$errors) {
         if ($id) {
             $db->prepare('UPDATE players SET name=?,full_name=?,nationality=?,nationality2=?,birth_date=?,birth_place=?,position=?,foot=?,height=?,weight=?,image=?,info=? WHERE id=?')
-               ->execute([...$pdata, $id]);
+               ->execute([...array_values($pdata), $id]);
         } else {
             $db->prepare('INSERT INTO players(name,full_name,nationality,nationality2,birth_date,birth_place,position,foot,height,weight,image,info) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)')
                ->execute(array_values($pdata));

@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$errors) {
         if ($id) {
             $db->prepare('UPDATE teams SET league_id=?,name=?,short_name=?,city=?,stadium=?,founded=?,colors=?,info=? WHERE id=?')
-               ->execute([...$data, $id]);
+               ->execute([...array_values($data), $id]);
         } else {
             $db->prepare('INSERT INTO teams(league_id,name,short_name,city,stadium,founded,colors,info) VALUES(?,?,?,?,?,?,?,?)')
                ->execute(array_values($data));
