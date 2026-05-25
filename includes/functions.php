@@ -134,7 +134,8 @@ function csrf_token(): string {
 }
 
 function csrf_check(): void {
-    if (($_POST['csrf'] ?? '') !== ($_SESSION['csrf'] ?? '')) {
+    $token = $_POST['csrf'] ?? $_GET['csrf'] ?? '';
+    if (!$token || $token !== ($_SESSION['csrf'] ?? '')) {
         http_response_code(403);
         die('CSRF check failed');
     }
