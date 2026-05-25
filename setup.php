@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS players (
   foot TEXT DEFAULT "",
   height INTEGER DEFAULT NULL,
   weight INTEGER DEFAULT NULL,
+  ea_rating INTEGER DEFAULT NULL,
   image TEXT DEFAULT "",
   info TEXT DEFAULT ""
 );

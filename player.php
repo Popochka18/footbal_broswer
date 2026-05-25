@@ -61,6 +61,9 @@ $current_value = $current ? $current['market_value'] : 0;
       <?php endif; ?>
       <div class="info-item"><label>Nationality</label><span><?= h($player['nationality']) ?><?= $player['nationality2'] ? ', ' . h($player['nationality2']) : '' ?></span></div>
       <div class="info-item"><label>Position</label><span><span class="position-badge"><?= h($player['position']) ?></span></span></div>
+      <?php if (!empty($player['ea_rating'])): ?>
+      <div class="info-item"><label>EA Rating</label><span><span class="ea-rating"><?= (int)$player['ea_rating'] ?></span></span></div>
+      <?php endif; ?>
       <?php if ($player['foot']): ?>
       <div class="info-item"><label>Foot</label><span><?= h($player['foot']) ?></span></div>
       <?php endif; ?>

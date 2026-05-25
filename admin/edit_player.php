@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'foot'         => trim($_POST['foot'] ?? ''),
         'height'       => (int)($_POST['height'] ?? 0) ?: null,
         'weight'       => (int)($_POST['weight'] ?? 0) ?: null,
+        'ea_rating'    => (int)($_POST['ea_rating'] ?? 0) ?: null,
         'image'        => trim($_POST['image'] ?? ''),
         'info'         => trim($_POST['info'] ?? ''),
     ];
@@ -48,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$errors) {
         if ($id) {
-            $db->prepare('UPDATE players SET name=?,full_name=?,nationality=?,nationality2=?,birth_date=?,birth_place=?,position=?,foot=?,height=?,weight=?,image=?,info=? WHERE id=?')
+            $db->prepare('UPDATE players SET name=?,full_name=?,nationality=?,nationality2=?,birth_date=?,birth_place=?,position=?,foot=?,height=?,weight=?,ea_rating=?,image=?,info=? WHERE id=?')
                ->execute([...array_values($pdata), $id]);
         } else {
-            $db->prepare('INSERT INTO players(name,full_name,nationality,nationality2,birth_date,birth_place,position,foot,height,weight,image,info) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)')
+            $db->prepare('INSERT INTO players(name,full_name,nationality,nationality2,birth_date,birth_place,position,foot,height,weight,ea_rating,image,info) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)')
                ->execute(array_values($pdata));
             $id = (int)$db->lastInsertId();
         }
@@ -71,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$v  = $player ?: ['name'=>'','full_name'=>'','nationality'=>'','nationality2'=>'','birth_date'=>'','birth_place'=>'','position'=>'','foot'=>'','height'=>'','weight'=>'','image'=>'','info'=>''];
+$v  = $player ?: ['name'=>'','full_name'=>'','nationality'=>'','nationality2'=>'','birth_date'=>'','birth_place'=>'','position'=>'','foot'=>'','height'=>'','weight'=>'','ea_rating'=>'','image'=>'','info'=>''];
 $sv = $squad  ?: ['team_id'=>'','season'=>'2025/26','jersey_number'=>'','market_value'=>0,'joined'=>'','contract_until'=>'','loan'=>0];
 $teams = get_teams();
 
@@ -116,6 +117,7 @@ $positions = ['GK','CB','LB','RB','LWB','RWB','CDM','CM','CAM','LM','RM','LW','R
           </div>
           <div class="form-group"><label>Height (cm)</label><input type="number" name="height" value="<?= h($v['height']) ?>" min="150" max="220"></div>
           <div class="form-group"><label>Weight (kg)</label><input type="number" name="weight" value="<?= h($v['weight']) ?>" min="50" max="120"></div>
+          <div class="form-group"><label>EA Rating</label><input type="number" name="ea_rating" value="<?= h($v['ea_rating'] ?? '') ?>" min="40" max="99" placeholder="auto-estimated on import"></div>
           <div class="form-group full"><label>Photo URL</label><input name="image" value="<?= h($v['image']) ?>" placeholder="https://..."></div>
           <div class="form-group full"><label>Bio / Notes</label><textarea name="info" rows="3"><?= h($v['info']) ?></textarea></div>
         </div>
