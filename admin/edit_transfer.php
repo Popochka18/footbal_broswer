@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$errors) {
         if ($id) {
             $db->prepare('UPDATE transfers SET player_id=?,from_team_id=?,to_team_id=?,transfer_date=?,fee=?,fee_type=?,season=?,notes=? WHERE id=?')
-               ->execute([...$data, $id]);
+               ->execute([...array_values($data), $id]);
         } else {
             $db->prepare('INSERT INTO transfers(player_id,from_team_id,to_team_id,transfer_date,fee,fee_type,season,notes) VALUES(?,?,?,?,?,?,?,?)')
                ->execute(array_values($data));
